@@ -41,5 +41,5 @@ public class Contrasenas {
             contrasena.append(caracteresPermitidos.charAt(indice));
         }
         return contrasena.toString();
-    }
-}
+       }
+       }
