@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+class Cajero {
+ string usuario;
+ string clave;
+ float saldo;
+ public:
+ Cajero(string u,string c,float s) {
+  usuario=u;
+  clave=c;
+  saldo=s;
+ }
+ int accedo(string u, string c) {
+  if (usuario==u and clave==c) { 
+  	  menu2();
+  	  return true;
+      }
+  else return false; 	   
+ } 
+ void menu2() { 
+   int opcion2;
+ float depositar;  
+int extraer;    
+ while (true) {
+  system("CLS");
+  cout<<"**MENU CAJERO**\n\n";
+  cout<<"1. Depositar\n";
+  cout<<"2. Extraer\n";
+  cout<<"3. Ver Saldo\n";
+  cout<<"4. Fin\n\n";    
+  cout<<"Ingrese opcion: ";
+  cin>>opcion2;   
+  switch(opcion2) {
+  case 1:
+  cout<<"Ingrese dinero a depositar"<<endl;  
+  cin>>depositar;  
+  saldo=saldo+depositar; 
+  break;
+  case 2: 
+  cout<<"Ingrese dinero a extraer"<<endl;  
+  cin>>extraer; 
+  if (extraer<=saldo) {   
+     if(extraer%10==0) 
+     {saldo=saldo-extraer; 
+      cout << "Extraccion exitosa. Saldo actual: " << saldo << endl; } 
+      else 
+	  cout<<"El ultimo digito debe ser 0"<<endl;  
+  }  
+  else {
+  cout<<"Saldo insufuciente, operacion invalida"<<endl; 
+  }
+  system("PAUSE");  
+  break;
+  case 3: 
+  cout<<"Saldo: "<<saldo<<endl;  
+  system("PAUSE");
+  break;
+  case 4:
+    return;
+    break;
+  default:
+    system("CLS"); cout<<"\nOpcion invalida.\n";
+    system("PAUSE");
+  }	
+ }	
+}
+};
+int main() {
+ Cajero cliente[5]={Cajero("u1","c1",0),Cajero("u2","c2",0),Cajero("u3","c3",0),Cajero("u4","c4",0),Cajero("u5","c5",0)};
+ int opcion;
+ while (true) {
+  system("CLS");
+  cout<<"***INGRESO***\n\n";
+  cout<<"1. Acceder\n";
+  cout<<"2. Fin\n\n";
+  cout<<"Ingrese opcion: ";
+  cin>>opcion;
+  switch(opcion) {
+  case 1: {  
+    string usuario,clave;
+cin.ignore(100,'\n');  
+     cout << "Ingrese usuario: ";
+     getline(cin, usuario); 
+     cout << "Ingrese clave: ";
+     getline(cin, clave);     
+	int i;	
+    for (i=0; i<5; i++) if (cliente[i].accedo(usuario,clave)) break;
+    if (i==5) { 
+       cout<<"Acceso denegado.."; system("pause");
+       }     
+    break;
+   }
+  case 2:
+    return 0;
+    break;
+  default:
+    system("CLS"); cout<<"\nOpcion invalida.\n";
+    system("PAUSE");
+  }	
+ }
+}
