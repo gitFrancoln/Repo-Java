@@ -1,0 +1,44 @@
+public class CuentaBancaria {
+    // Atributos
+    private String nombresTitular;
+    private String apellidosTitular;
+    private String numeroCuenta;
+    private String tipoCuenta;
+    private double saldo;
+
+    // Constructor
+    public CuentaBancaria(String nombresTitular, String apellidosTitular, String numeroCuenta, String tipoCuenta) {
+        this.nombresTitular = nombresTitular;
+        this.apellidosTitular = apellidosTitular;
+        this.numeroCuenta = numeroCuenta;
+        this.tipoCuenta = tipoCuenta;
+        this.saldo = 0.0; // Saldo inicial cero
+    }
+
+    // Métodos
+    public void imprimirDatos() {
+        System.out.println("Nombres del titular: " + nombresTitular);
+        System.out.println("Apellidos del titular: " + apellidosTitular);
+        System.out.println("Número de cuenta: " + numeroCuenta);
+        System.out.println("Tipo de cuenta: " + tipoCuenta);
+        System.out.println("Saldo: " + saldo);
+    }
+
+    public double consultarSaldo() {
+        return saldo;
+    }
+
+    public void ingresar(double valor) {
+        saldo += valor;
+        System.out.println("Se ha consignado " + valor + " a la cuenta. Saldo actual: " + saldo);
+    }
+
+    public void retirar(double valor) {
+        if (valor <= saldo) {
+            saldo -= valor;
+            System.out.println("Se ha retirado " + valor + " de la cuenta. Saldo actual: " + saldo);
+        } else {
+            System.out.println("No se puede retirar. Saldo insuficiente.");
+        }
+    }
+}
