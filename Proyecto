@@ -1,0 +1,102 @@
+package com.miempresa;
+
+    import javax.swing.*;
+    import java.awt.*;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+    
+    public class CodeMain {
+        private JFrame frame;
+        private JPanel panelMenu;
+        private JTextArea ticketArea;
+        private JButton botonMenu;
+        private JButton botonPedir;
+        private JButton botonVolver;
+        private JComboBox<String> comboComida;
+        private int contador = 0;
+    
+        public static void main(String[] args) {
+            EventQueue.invokeLater(() -> {
+                try {
+                   CodeMain window = new CodeMain();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    
+        public CodeMain() {
+            initialize();
+        }
+    
+        private void initialize() {
+            frame = new JFrame();
+            frame.setBounds(100, 100, 450, 300);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().setLayout(new CardLayout(0, 0));
+    
+            JPanel panelInicio = new JPanel();
+            frame.getContentPane().add(panelInicio, "name_138272423349600");
+            panelInicio.setLayout(null);
+    
+            botonMenu = new JButton("Ir al Menú");
+            botonMenu.setBounds(150, 100, 150, 50);
+            panelInicio.add(botonMenu);
+    
+            panelMenu = new JPanel();
+            frame.getContentPane().add(panelMenu, "name_138272423706900");
+            panelMenu.setLayout(null);
+    
+            JLabel lblSeleccioneComida = new JLabel("Seleccione Comida:");
+            lblSeleccioneComida.setBounds(50, 50, 120, 20);
+            panelMenu.add(lblSeleccioneComida);
+    
+            comboComida = new JComboBox<>();
+            comboComida.setModel(new DefaultComboBoxModel<>(new String[]{"Pizza", "Hamburguesa", "Ensalada"}));
+            comboComida.setBounds(180, 50, 200, 20);
+            panelMenu.add(comboComida);
+    
+            botonPedir = new JButton("Pedir");
+            botonPedir.setBounds(50, 100, 100, 30);
+            panelMenu.add(botonPedir);
+    
+            ticketArea = new JTextArea();
+            ticketArea.setEditable(false);
+            ticketArea.setBounds(50, 150, 330, 50);
+            panelMenu.add(ticketArea);
+    
+            botonVolver = new JButton("Volver a Pedir");
+            botonVolver.setBounds(50, 210, 150, 30);
+            panelMenu.add(botonVolver);
+    
+            // Action Listeners
+            botonMenu.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    CardLayout cl = (CardLayout) (frame.getContentPane().getLayout());
+                    cl.next(frame.getContentPane());
+                }
+            });
+    
+            botonPedir.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String comidaSeleccionada = (String) comboComida.getSelectedItem();
+                    contador++;
+                    ticketArea.setText("Pedido #" + contador + ": " + comidaSeleccionada + "\n");
+                    ticketArea.append("Gracias por su pedido.\n");
+                }
+            });
+    
+            botonVolver.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    int respuesta = JOptionPane.showConfirmDialog(frame, "¿Quieres volver a pedir?", "Volver a Pedir", JOptionPane.YES_NO_OPTION);
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        ticketArea.setText("");
+                    } else {
+                        frame.dispose();
+                    }
+                }
+            });
+        }
+    }
+    
